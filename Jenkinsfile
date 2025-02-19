@@ -56,14 +56,14 @@ pipeline {
         }
     }
 }= "http://your-sonarqube-server:9000"
-        SONAR_PROJECT_KEY = "vote"
+        SONAR_PROJECT_KEY = "sonar-token"
         SONAR_SCANNER_CLI = "/opt/sonar-scanner/bin/sonar-scanner"
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Primus-Learning/vote.git'  // Update per service
+                git 'https://github.com/Faoziyah/vote.git'  // Update per service
             }
         }
 
