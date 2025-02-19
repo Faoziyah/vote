@@ -2,14 +2,6 @@ pipeline {
     agent any
 
     environment {
-        AWS_ACCOUNT_ID = "YOUR_AWS_ACCOUNT_ID"
-        REGION = "us-east-1"
-        ECR_REPO = "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/vote"
-        IMAGE_NAME = "vote"  // Change this for other services (worker, result)
-        SONAR_HOST_URL pipeline {
-    agent any
-
-    environment {
         AWS_ACCOUNT_ID = "784065479571"
         REGION = "us-west-1"
         ECR_REPO = "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/vote"
