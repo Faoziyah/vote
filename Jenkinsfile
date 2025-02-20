@@ -6,9 +6,8 @@ pipeline {
         REGION = "us-west-1"
         ECR_REPO = "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/vote"
         IMAGE_NAME = "vote"  // Change this for other services (worker, result)
-        SONAR_HOST_URL = "http://34.229.95.47:9000"
-        SONAR_PROJECT_KEY = "vote"
-        SONAR_SCANNER_CLI = "/opt/sonar-scanner/bin/sonar-scanner"
+        SONARQUBE_URL = 'http://34.229.95.47:9000'
+        SONARQUBE_TOKEN = credentials('sonar-token')
     }
 
     stages {
@@ -18,19 +17,21 @@ pipeline {
             }
         }
 
-    stage('SonarQube analysis') {
-      steps {
-        script {
-            scannerHome = tool '<SonarQube>'// must match the name of an actual scanner installation directory on your Jenkins build agent
-        }
-        withSonarQubeEnv('<sonarqubeInstallation>') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
-          sh "${scannerHome}/bin/sonar-scanner"
-        }
-      }
-    }
+stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') { // 'SonarQube' is the name configured in Jenkins settings
+                    sh '''
+                    sonar-scanner \
+                      -Dsonar.projectKey=vote \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=$SONARQUBE_URL \
+                      -Dsonar.login=$SONARQUBE_TOKEN
+                    '''
+                }
+            }
 
-
-       
+        
+    
 
         stage('Build Docker Image') {
             steps {
