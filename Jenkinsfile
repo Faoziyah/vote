@@ -7,7 +7,7 @@ pipeline {
         ECR_REPO = "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/vote"
         IMAGE_NAME = "vote"  // Change this for other services (worker, result)
         SONAR_HOST_URL = "http://34.229.95.47:9000/"
-        SONAR_PROJECT_KEY = "vote"
+        SONAR_PROJECT_KEY = "sonar-token"
         SONAR_SCANNER_CLI = "/opt/sonar-scanner/bin/sonar-scanner"
     }
 
