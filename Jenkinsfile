@@ -18,22 +18,19 @@ pipeline {
             }
         }
 
-
-
-
-        
-        stage('SonarQube Scan') {
-            steps {
-                withSonarQubeEnv('SonarQube') {  // Ensure 'SonarQube' is configured in Jenkins
-                    sh """
-                    $SONAR_SCANNER_CLI -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                                       -Dsonar.sources=. \
-                                       -Dsonar.host.url=$SONAR_HOST_URL
-                                       
-                    """
-                }
-            }
+    stage('SonarQube analysis') {
+      steps {
+        script {
+            scannerHome = tool '<SonarQube>'// must match the name of an actual scanner installation directory on your Jenkins build agent
         }
+        withSonarQubeEnv('<sonarqubeInstallation>') {// If you have configured more than one global server connection, you can specify its name as configured in Jenkins
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
+      }
+    }
+
+
+       
 
         stage('Build Docker Image') {
             steps {
