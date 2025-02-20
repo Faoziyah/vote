@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Faoziyah/vote.git'  // Update per service
+               git branch: 'main', credentialsId: 'git-voting-token', url: 'https://github.com/Faoziyah/vote.git'  // Update per service
             }
         }
 
