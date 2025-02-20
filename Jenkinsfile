@@ -18,6 +18,10 @@ pipeline {
             }
         }
 
+
+
+
+        
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv('SonarQube') {  // Ensure 'SonarQube' is configured in Jenkins
